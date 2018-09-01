@@ -37,7 +37,7 @@ def np_shift_h(arr, num, fill_value=None):
 
 def quad_neighbor_pixels_from_ndarray(image, pixel_class):
     pixels = pixels_from_ndarray(image, pixel_class)
-    pixel_quad_neighbors_from_ndarray(pixels)
+    # pixel_quad_neighbors_from_ndarray(pixels)  # <- attribute-access modification
     return pixels
 
 
@@ -198,14 +198,17 @@ class Shape(object):
         self._box = None
         if init_pixels is not None:
             if hasattr(init_pixels, "tolist"):
-                self.pixels = set(init_pixels.tolist())
+                # self.pixels = set(init_pixels.tolist())  # <- attribute-access modification
+                self.pixels = init_pixels  # <- attribute-less modification
             else:
-                self.pixels = set(init_pixels)
-            self.color = next(iter(self.pixels)).color if self.pixels else None
+                # self.pixels = set(init_pixels)  # <- attribute-access modification
+                self.pixels = init_pixels  # <- attribute-less modification
+            # self.color = next(iter(self.pixels)).color if self.pixels else None  # <- attribute-access modification
+            self.color = None  # <- attribute-less modification
         else:
             self.pixels = set()
             self.color = None
-        self.assign_pixels(self.pixels)
+        # self.assign_pixels(self.pixels)  # <- attribute-access modification
 
     def assign_pixels(self, pixels):
         for pix in pixels:
@@ -265,14 +268,17 @@ class DictShape(object):
         self._box = None
         if init_pixels is not None:
             if hasattr(init_pixels, "tolist"):
-                self.pixels = set(init_pixels.tolist())
+                # self.pixels = set(init_pixels.tolist())  # <- attribute-access modification
+                self.pixels = init_pixels  # <- attribute-less modification
             else:
-                self.pixels = set(init_pixels)
-            self.color = next(iter(self.pixels)).color if self.pixels else None
+                # self.pixels = set(init_pixels)  # <- attribute-access modification
+                self.pixels = init_pixels  # <- attribute-less modification
+            # self.color = next(iter(self.pixels)).color if self.pixels else None  # <- attribute-access modification
+            self.color = None  # <- attribute-less modification
         else:
             self.pixels = set()
             self.color = None
-        self.assign_pixels(self.pixels)
+        # self.assign_pixels(self.pixels)  # <- attribute-access modification
 
     def assign_pixels(self, pixels):
         for pix in pixels:
@@ -392,5 +398,5 @@ def reverse_main():
 
 
 if __name__ == "__main__":
-    # main()
-    reverse_main()
+    main()
+    # reverse_main()
